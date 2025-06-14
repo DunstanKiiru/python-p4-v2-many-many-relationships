@@ -67,6 +67,10 @@ class Project(db.Model):
     
     # Relationship mapping the project to related assignments
     assignments = db.relationship('Assignment', back_populates='project',cascade='all, delete-orphan')
+    
+    # Association proxy to get employees for this project through assignments
+    employees = association_proxy('assignments', 'employee',
+                                  creator=lambda employee_obj: Assignment(employee=employee_obj))
 
     def __repr__(self):
         return f'<Review {self.id}, {self.title}, {self.budget}>'
