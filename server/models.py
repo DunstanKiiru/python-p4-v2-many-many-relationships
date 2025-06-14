@@ -25,6 +25,11 @@ class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     hire_date = db.Column(db.Date)
+    
+    # Relationship mapping the employee to related meetings
+    meetings = db.relationship(
+        'Meeting', secondary=employee_meetings, back_populates='employees')
+
 
     def __repr__(self):
         return f'<Employee {self.id}, {self.name}, {self.hire_date}>'
