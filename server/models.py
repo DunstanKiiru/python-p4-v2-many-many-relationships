@@ -42,6 +42,10 @@ class Meeting(db.Model):
     topic = db.Column(db.String)
     scheduled_time = db.Column(db.DateTime)
     location = db.Column(db.String)
+    
+     # Relationship mapping the meeting to related employees
+    employees = db.relationship(
+        'Employee', secondary=employee_meetings, back_populates='meetings')
 
     def __repr__(self):
         return f'<Meeting {self.id}, {self.topic}, {self.scheduled_time}, {self.location}>'
